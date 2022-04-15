@@ -4,17 +4,17 @@
       <NavBar />
     </div>
 
-    <p class='has-text-centered has-text-white is-size-1 mb-3 mt-3'>เบเกอรี่</p>
+    <p class='has-text-centered has-text-white is-size-1 my-3'>เบเกอรี่</p>
 
-    <div class="columns is-multiline ml-3 mr-3">
+    <div class="columns is-multiline mx-3">
         <div class="column is-4" v-for="(bake, a) in bakery" :key="a">
             <img :src="bake.image" style="width: 100%">
         </div>
     </div>
 
-    <p class='has-text-centered has-text-white is-size-1 mb-3 mt-3'>เครื่องดื่ม</p>
+    <p class='has-text-centered has-text-white is-size-1 my-3'>เครื่องดื่ม</p>
 
-    <div class="columns is-multiline ml-3 mr-3">
+    <div class="columns is-multiline mx-3">
         <div class="column is-4" v-for="(dr, a) in drink" :key="a">
             <img :src="dr.image" style="width: 100%">
         </div>
