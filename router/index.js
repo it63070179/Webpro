@@ -22,6 +22,18 @@ const routes = [
     component: () => import('../views/PromotionPage.vue') 
   },
 
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/LoginPage.vue') 
+  },
+
+  {
+    path: '/forgetpassword',
+    name: 'Forgetpassword',
+    component: () => import('../views/ForgetPasswordPage.vue') 
+  },
+
 ]
 
 const router = new VueRouter({
