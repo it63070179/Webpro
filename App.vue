@@ -1,10 +1,7 @@
 <template>
   <div style="background-color: #f8dec7">
-    <div id="abc">
+    <div id="deletetop">
       <router-view></router-view>
-    </div>
-    <div id="app">
-      
     </div>
 
     <footer class="footer" style="background-color: #b08968">
@@ -32,26 +29,8 @@
   </div>
 </template>
 
-
-<script>
-export default {
-  name: "App",
-};
-</script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  margin-bottom: 60px;
-}
-
-#abc {
+#deletetop {
   background-color: transparent;
 }
-
 </style>
