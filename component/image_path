@@ -1,0 +1,56 @@
+<template>
+  <div>
+    <!-- <img src="../assets/promotion.png" /> -->
+    <h1 class="has-text-centered is-size-3 mb-3">สินค้ายอดนิยม</h1>
+    <b-carousel>
+      <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
+        <div style="height: 65vh">
+          <img
+            :src="carousel.image"
+            style="max-height: 400px; position: relative; left: 38%"
+          />
+        </div>
+      </b-carousel-item>
+    </b-carousel>
+    <h1 class="has-text-centered is-size-3 mb-3" style="margin-top: 60px">
+      สินค้าใหม่
+    </h1>
+    <div v-for="(newproduct, index) in newproducts" :key="index">
+      <img />
+    </div>
+  </div>
+</template>
+<style>
+body {
+  background-color: #f8dec7;
+}
+.carousel-pause {
+  display: none;
+}
+</style>
+<script>
+export default {
+  data() {
+    return {
+      carousels: [
+        {
+          text: "Slide 1",
+          image: require("../assets/chocolate_cake_PNG5.png"),
+        },
+        {
+          text: "Slide 2",
+          image: require("../assets/chocolate_cake_PNG40.png"),
+        },
+      ],
+      newproducts: [
+        {
+          path_image: require("../assets/chocolate_cake_PNG5.png"),
+        },
+        {
+          path_image: require("../assets/chocolate_cake_PNG40.png"),
+        },
+      ],
+    };
+  },
+};
+</script>
