@@ -1,0 +1,76 @@
+<template>
+  <div>
+    <div class="photo2">
+      <NavBar />
+    </div>
+
+    <p class='has-text-centered has-text-white is-size-1 mb-3 mt-3'>เบเกอรี่</p>
+
+    <div class="columns is-multiline ml-3 mr-3">
+        <div class="column is-4" v-for="(bake, a) in bakery" :key="a">
+            <img :src="bake.image" style="width: 100%">
+        </div>
+    </div>
+
+    <p class='has-text-centered has-text-white is-size-1 mb-3 mt-3'>เครื่องดื่ม</p>
+
+    <div class="columns is-multiline ml-3 mr-3">
+        <div class="column is-4" v-for="(dr, a) in drink" :key="a">
+            <img :src="dr.image" style="width: 100%">
+        </div>
+    </div>
+  </div>
+</template>
+
+<style>
+.photo2 {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url(../assets/product.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>
+
+<script>
+import NavBar from "../components/NavBar";
+
+export default {
+  components: {
+    NavBar,
+  },
+  data() {
+    return {
+        bakery: [
+            {
+                id: 1, title: 'croissant', image: require('../assets/product.png')
+            },
+            {
+                id: 2, title: 'croissant', image: require('../assets/product.png')
+            },
+            {
+                id: 3, title: 'croissant', image: require('../assets/product.png')
+            },
+            {
+                id: 4, title: 'croissant', image: require('../assets/product.png')
+            },
+        ],
+        drink: [
+            {
+                id: 1, title: 'croissant', image: require('../assets/product.png')
+            },
+            {
+                id: 2, title: 'croissant', image: require('../assets/product.png')
+            },
+            {
+                id: 3, title: 'croissant', image: require('../assets/product.png')
+            },
+            {
+                id: 4, title: 'croissant', image: require('../assets/product.png')
+            },
+        ],
+    };
+  },
+};
+</script>
