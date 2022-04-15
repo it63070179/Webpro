@@ -37,6 +37,11 @@
     </b-navbar>
   </div>
 </template>
+<style>
+#deletetop {
+  background-color: transparent;
+}
+</style>
 <script>
 export default {
   name: "NavBar",
