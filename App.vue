@@ -1,9 +1,8 @@
 <template>
   <div style="background-color: #f8dec7">
-    <div id="deletetop">
+    <div id="app">
       <router-view></router-view>
     </div>
-
     <footer class="footer" style="background-color: #b08968">
       <div class="columns">
         <div class="column">
@@ -30,7 +29,4 @@
 </template>
 
 <style>
-#deletetop {
-  background-color: transparent;
-}
 </style>
