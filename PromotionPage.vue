@@ -4,12 +4,12 @@
       <b-navbar id="abc">
         <template #start>
           <b-navbar-item tag="div"
-            ><router-link to="/"> หน้าแรก </router-link></b-navbar-item
+            ><router-link to="/" style="color:white"> หน้าแรก </router-link></b-navbar-item
           >
           <b-navbar-item tag="div"
-            ><router-link to="/profile"> สินค้า </router-link></b-navbar-item
+            ><router-link to="/profile" style="color:white"> สินค้า </router-link></b-navbar-item
           >
-          <b-navbar-item tag="div"><router-link to="/promotion"> โปรโมชัน </router-link></b-navbar-item>
+          <b-navbar-item tag="div"><router-link to="/promotion" style="color:white"> โปรโมชัน </router-link></b-navbar-item>
         </template>
         <template #end>
           <b-navbar-item tag="div" style="padding-top: 12px">
@@ -32,22 +32,57 @@
       </b-navbar>
     </div>
 
-    <p>test</p>
-    <p>This is promotion</p>
+    <section>
+      <p style=" position: absolute; bottom: 70%; left: 50%; font-size: 40px; color: white">
+        โปรโมชัน
+      </p>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="columns">
+        <div class="column">
+          <img src="../assets/promotion.png" width="100%" >
+        </div>
+        <div class="column">
+          <img src="../assets/promotion.png" width="100%" >
+        </div>
+        <div class="column">
+          <img src="../assets/promotion.png" width="100%" >
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="columns">
+        <div class="column">
+          <img src="../assets/promotion.png" width="100%" >
+        </div>
+        <div class="column">
+          <img src="../assets/promotion.png" width="100%" >
+        </div>
+        <div class="column">
+          <img src="../assets/promotion.png" width="100%" >
+        </div>
+      </div>
+    </section>
 
   </div>
 </template>
 <style>
+
 #abc {
   background-color: transparent;
+  flex-direction: top;
 }
 
 .bg2 {
   width: 100%;
-  min-height: 80vh;
+  min-height: 50vh;
   background-image: url(../assets/promotion.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 </style>
