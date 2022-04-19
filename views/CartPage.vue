@@ -40,20 +40,19 @@
               height: 2px;
             "
           />
-          <br />
-          <br />
-          <br />
-          <span style="margin-bottom: 10vh; margin-left: 10vw">ราคา</span>
-          <span style="margin-bottom: 10vh; margin-left: 8.6vw">
-            <a><i class="fas fa-plus" style="color: #4a4a4a"></i></a>
-            <a class="is-size-6 mx-5" style="color: #4a4a4a">1</a>
-            <a><i class="fas fa-minus" style="color: #4a4a4a"></i></a
-          ></span>
-          <span style="margin-bottom: 10vh; margin-left: 8.8vw">ราคารวม</span>
-          <i
-            class="fas fa-trash-alt"
-            style="margin-left: 2vw; font-size: 20px"
-          ></i>
+          <div style="margin-top: 15vh">
+            <span style="margin-bottom: 10vh; margin-left: 10vw">ราคา</span>
+            <span style="margin-bottom: 10vh; margin-left: 8.6vw">
+              <a><i class="fas fa-plus" style="color: #4a4a4a"></i></a>
+              <a class="is-size-6 mx-5" style="color: #4a4a4a">1</a>
+              <a><i class="fas fa-minus" style="color: #4a4a4a"></i></a
+            ></span>
+            <span style="margin-bottom: 10vh; margin-left: 8.8vw">ราคารวม</span>
+            <i
+              class="fas fa-trash-alt"
+              style="margin-left: 2vw; font-size: 20px"
+            ></i>
+          </div>
         </div>
       </div>
     </div>
