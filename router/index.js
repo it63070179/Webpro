@@ -1,25 +1,80 @@
-const express = require("express")
-var cors = require('cors')
-const path = require("path")
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-const app = express();
-app.use(cors({
-  origin:true,
-  credentials:true
-}))
-// Statics
-app.use(express.static('static'))
+Vue.use(VueRouter)
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('../views/HomePage.vue') // set home as path '/'
+  },
 
-// routers
-const productRouter = require('./routes/product')
-const signupuserRouter = require('./routes/signupuser')
+  {
+    path: '/product',
+    name: 'Product',
+    component: () => import('../views/ProductPage.vue')
+  },
 
-app.use(productRouter.router)
-app.use(signupuserRouter.router)
+  {
+    path: '/promotion',
+    name: 'Promotion',
+    component: () => import('../views/PromotionPage.vue') 
+  },
 
-app.listen(3000, () => {
-  console.log(`Example app listening at http://localhost:3000`)
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/LoginPage.vue') 
+  },
+
+  {
+    path: '/forgetpassword',
+    name: 'Forgetpassword',
+    component: () => import('../views/ForgetPasswordPage.vue') 
+  },
+
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('../views/ProfilePage.vue') 
+  },
+
+  {
+    path: '/editproduct/:id',
+    name: 'EditProduct',
+    component: () => import('../views/EditProductPage.vue') 
+  },
+
+  {
+    path: '/addproduct',
+    name: 'AddProduct',
+    component: () => import('../views/AddProductPage.vue') 
+  },
+
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: () => import('../views/PaymentPage.vue') 
+  },
+
+  {
+    path: '/order',
+    name: 'Order',
+    component: () => import('../views/OrderPage.vue') 
+  },
+
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../views/SignupPage') 
+  },
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
 })
+
+export default router
