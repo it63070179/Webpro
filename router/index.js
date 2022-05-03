@@ -1,45 +1,25 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+const express = require("express")
+var cors = require('cors')
+const path = require("path")
 
-Vue.use(VueRouter)
+const app = express();
+app.use(cors({
+  origin:true,
+  credentials:true
+}))
+// Statics
+app.use(express.static('static'))
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('../views/HomePage.vue') // set home as path '/'
-  },
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-  {
-    path: '/product',
-    name: 'Product',
-    component: () => import('../views/ProductPage.vue')
-  },
+// routers
+const productRouter = require('./routes/product')
+const signupuserRouter = require('./routes/signupuser')
 
-  {
-    path: '/promotion',
-    name: 'Promotion',
-    component: () => import('../views/PromotionPage.vue') 
-  },
+app.use(productRouter.router)
+app.use(signupuserRouter.router)
 
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/LoginPage.vue') 
-  },
-
-  {
-    path: '/forgetpassword',
-    name: 'Forgetpassword',
-    component: () => import('../views/ForgetPasswordPage.vue') 
-  },
-
-]
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:3000`)
 })
-
-export default router
