@@ -21,16 +21,32 @@
       <template #end>
         <b-navbar-item tag="div" style="padding-top: 12px">
           <div class="block" style="margin-bottom: 0">
+            <router-link>
             <i
               class="fas fa-shopping-cart"
               style="margin-left: -60%; font-size: 30px; color: white"
             ></i>
+            </router-link>
           </div>
-          <a class="button is-primary" style="margin-left: -2%">
-            <strong>สมัครสมาชิก</strong>
+          <a class="button is-light">
+            <router-link>
+            <strong>จัดการออเดอร์</strong>
+            </router-link>
           </a>
-          <a class="button is-light" style="margin-left: 4%">
+          <a class="button is-light ml-2">
+            <router-link>
+            <strong>เพิ่มพนักงาน</strong>
+            </router-link>
+          </a>
+          <a class="button is-light ml-2">
+            <router-link to="/signup">
+            <strong>สมัครสมาชิก</strong>
+            </router-link>
+          </a>
+          <a class="button is-light ml-2">
+            <router-link to="/login">
             <strong>เข้าสู่ระบบ</strong>
+            </router-link>
           </a>
         </b-navbar-item>
       </template>
