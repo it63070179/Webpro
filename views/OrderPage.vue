@@ -5,25 +5,33 @@
     </div>
     <div class="container">
       <div class="mt-6" style="display: flex; justify-content: center">
-        <span class="is-size-2">คำสั่งซื้อที่ ....</span>
+        <span class="is-size-2">คำสั่งซื้อที่ {{ this.$route.params.id }}</span>
         <img
           src="../assets/pic_orderpage.png"
           style="width: 6%; margin-top: -50px"
         />
       </div>
-      <h1 class="is-size-2">ชื่อร้าน</h1>
-      <div class="columns" style="margin: 2vh 10vw">
+      <!-- <h1 class="is-size-2">ชื่อร้าน</h1> -->
+      <br />
+      <div
+        class="columns"
+        style="margin: 2vh 10vw"
+        v-for="(product, index) in products"
+        :key="product.item_no"
+      >
         <div class="column">
-          <p>สินค้า</p>
+          <p>{{ index + 1 }}. {{ product.product_name }}</p>
         </div>
         <div class="column">
-          <p>จำนวน</p>
+          <p>{{ product.order_amount }}</p>
         </div>
         <div class="column">
-          <p>ราคา</p>
+          <p>{{ product.item_totalprice }}</p>
         </div>
       </div>
-      <h1 class="is-size-2 has-text-right mt-6 mb-6">ราคารวม .. บาท</h1>
+      <h1 class="is-size-2 has-text-right mt-6 mb-6">
+        ราคารวม {{ TotalPrice }} บาท
+      </h1>
       <div class="columns is-centered">
         <div
           class="column is-half mb-5 p-5"
@@ -69,11 +77,43 @@
 
 <script>
 import NavBar from "../components/NavBar";
+import axios from "axios";
 export default {
   data() {
-    return {};
+    return {
+      // cart: [],
+      products: [],
+      totalPrice: 0,
+    };
   },
-  methods: {},
+  mounted() {
+    // console.log(localStorage.getItem("cart"));
+    // this.checkCart();
+    this.getOrder(this.$route.params.id);
+    console.log(this.$route.params.id);
+    localStorage.removeItem("cart");
+  },
+  methods: {
+    getOrder(id) {
+      axios
+        .get(`http://localhost:3000/order/${id}`)
+        .then((response) => {
+          this.products = response.data;
+          console.log(this.products);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  computed: {
+    TotalPrice() {
+      this.products.forEach((element) => {
+        this.totalPrice += element.item_totalprice;
+      });
+      return this.totalPrice;
+    },
+  },
   components: {
     NavBar,
   },
