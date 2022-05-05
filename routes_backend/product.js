@@ -98,17 +98,20 @@ router.post("/product/add", upload.array("myImage"), async function (req, res, n
 });
 
 router.get("/product/:id", function (req, res, next) {
-
+  // Query data from 3 tables
   const promise1 = pool.query("SELECT * FROM product WHERE product_id = ?", [req.params.id]);
   const promise2 = pool.query("SELECT * FROM image WHERE product_id = ?", [req.params.id]);
-
-  Promise.all([promise1, promise2])
+  const promise3 = pool.query("SELECT * FROM product WHERE product_type = 'option'");
+  // Use Promise.all() to make sure that all queries are successful
+  Promise.all([promise1, promise2, promise3])
     .then((results) => {
       const [product, blogFields] = results[0];
       const [images, imageFields] = results[1];
+      const [topping, proFields] = results[2];
       res.json({
         products: product[0],
         images: images,
+        topping: topping,
       });
     })
     .catch((err) => {
@@ -116,6 +119,7 @@ router.get("/product/:id", function (req, res, next) {
       return res.status(500).json(err);
     });
 });
+
 
 router.put('/product/delete/:productId', async function (req, res, next) {
   await pool.query('UPDATE product SET show_status = ? WHERE product_id = ?', ['hide', req.params.productId])
@@ -165,6 +169,33 @@ router.post('/product/edit/:id', upload.array("myImage"), async function (req, r
       conn.release()
     }
 
+});
+
+router.post("/product/addpro", async function (req, res, next) {
+  const conn = await pool.getConnection()
+  await conn.beginTransaction();
+
+  const product_name = req.body.product_name
+  const product_desc = req.body.product_desc
+  const product_price = req.body.product_price
+  const product_type = req.body.product_type
+  const product_status = req.body.product_status
+  const product_amount = req.body.product_amount
+
+  try {
+    await conn.query(
+      'INSERT INTO product(product_name, product_desc, product_price, product_type, product_status, product_amount)' +
+      'VALUES (?, ?, ?, ?, ?, ?)',
+      [product_name, product_desc, product_price, product_type, product_status, product_amount]
+    )
+    conn.commit()
+    res.send()
+  } catch (err) {
+    conn.rollback()
+    res.status(400).json(err.toString());
+  } finally {
+    conn.release()
+  }
 });
 
 
