@@ -100,6 +100,11 @@ const routes = [
     component: () => import('../views/SignupempPage.vue') 
   },
   
+  {
+    path: '/detailproduct/:id',
+    name: 'detailproduct',
+    component: () => import('../views/CoffeePage.vue')
+  },
 ]
 
 const router = new VueRouter({
