@@ -69,6 +69,31 @@ const routes = [
     name: 'signup',
     component: () => import('../views/SignupPage.vue') 
   },
+  
+  {
+    path: '/adminpromotion',
+    name: 'Adminpromotion',
+    component: () => import('../views/AdminPromotionPage.vue')
+  },
+  
+  {
+    path: '/addpromotion',
+    name: 'Addpromotion',
+    component: () => import('../views/AddPromotionPage.vue') 
+  },
+  
+  {
+    path: '/editpromotion/:promoId',
+    name: 'Editpromotion',
+    component: () => import('../views/EditPromotionPage.vue') 
+  },
+  
+   {
+    path: '/manageorder',
+    name: 'ManageOrder',
+    component: () => import('../views/ManageOrderPage.vue') 
+  },
+  
 ]
 
 const router = new VueRouter({
