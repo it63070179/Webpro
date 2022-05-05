@@ -53,4 +53,37 @@ router.get("/order/:orderId", async function (req, res, next) {
 })
 
 
+// แสดง order ในหน้า manageorder
+router.get("/manageorder", async function (req, res, next) {
+  try {
+    const orders = await pool.query("SELECT * FROM `order`");
+    
+    res.send(orders[0])
+
+  }
+  catch (e) {
+    res.send(e)
+  }
+});
+
+// ถ้ากดปุ่ม yes จะขึ้นว่า sold แล้วหาย
+router.put('/yes/:id', async function (req, res, next) {
+  const [row, fields] = await pool.query(
+    'UPDATE `order` SET order_status = ? WHERE order_id = ?',
+    ['sold',req.params.id]
+  )
+  res.json()
+
+});
+
+// ถ้ากดปุ่ม cancel จะขึ้นว่า sold แล้วหาย
+router.put('/no/:id', async function (req, res, next) {
+  const [row, fields] = await pool.query(
+    'UPDATE `order` SET order_status = ? WHERE order_id = ?',
+    ['canceled',req.params.id]
+  )
+  res.json()
+
+});
+
 exports.router = router;
