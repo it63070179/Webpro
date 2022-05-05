@@ -94,6 +94,12 @@ const routes = [
     component: () => import('../views/ManageOrderPage.vue') 
   },
   
+  {
+    path: '/signupemp',
+    name: 'Signupemp',
+    component: () => import('../views/SignupempPage.vue') 
+  },
+  
 ]
 
 const router = new VueRouter({
