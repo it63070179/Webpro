@@ -239,6 +239,11 @@
               <li style="font-size: 22px">
                 สินค้าคงเหลือ {{ products.product_amount }} ชิ้น
               </li>
+               <i
+                class="fas fa-cart-arrow-down ml-3"
+                style="font-size: 30px; cursor: pointer"
+                @click="addtoCart(products)"
+              ></i> 
             </ul>
           </div>
         </div>
@@ -282,7 +287,9 @@ export default {
       reviewbox: {},
       editSelectedReviews: [],
       editReviewMessage: "",
-      keep: ''
+      keep: '',
+      cart: [],
+
     };
   },
 
@@ -294,7 +301,13 @@ export default {
 
   mounted() {
     this.getDetail(this.$route.params.id);
+    console.log(localStorage.getItem("cart"));
+    this.checkCart();
   },
+  beforeDestroy() {
+    this.saveProduct();
+  },
+
   methods: {
     getDetail(id) {
       this.idpro = id;
@@ -304,6 +317,8 @@ export default {
           this.products = response.data.products;
           this.images = response.data.images;
           this.topping = response.data.topping;
+          this.$set(this.products, "image_path", this.images[0].image_path);
+          this.$set(this.products, "order_amount", 1);
           console.log(this.products);
           console.log(this.images);
         })
@@ -411,7 +426,37 @@ export default {
     },
     boxlooks(){
       this.keep = 'It looks so good'
-    }
+    },
+     saveProduct() {
+      const cart = JSON.stringify(this.cart);
+      localStorage.setItem("cart", cart);
+    },
+
+    addtoCart(product) {
+      let sameproduct = this.cart.find(
+        (element) => element.product_id == product.product_id
+      );
+      let indexsameproduct = this.cart.findIndex(
+        (element) => element.product_id == product.product_id
+      );
+      console.log(indexsameproduct);
+      if (sameproduct) {
+        this.cart[indexsameproduct].order_amount += 1;
+        console.log({ same: this.cart });
+        return;
+      }
+      this.cart.push(this.products);
+      console.log(this.cart);
+    },
+    checkCart() {
+      let cartItem = JSON.parse(localStorage.getItem("cart"));
+      if (cartItem.length != 0) {
+        this.cart = cartItem;
+        console.log({ cartlocal: this.cart });
+      } else {
+        console.log("no item in cart");
+      }
+    }, 
   },
 };
 </script>
