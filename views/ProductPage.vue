@@ -9,7 +9,7 @@
         <p class="has-text-centered has-text-white is-size-1 my-3">เบเกอรี่</p>
       </div>
       <div class="column mt-5 is-4 is-offset-2">
-        <router-link to="/addproduct">
+        <router-link to="/addproduct" v-if="role == 'employee'">
           <button
             class="button is-medium"
             style="background-color: #633f38; color: #f8dec7"
@@ -25,18 +25,19 @@
         class="column is-4"
         v-for="bake in bakery"
         :key="bake.id"
-        v-show="bake.product_status == 'available'"
+        v-show="bake.product_status == 'available' && bake.show_status == 'show'"
       >
-        <router-link to="/" style="color: black">
+        <router-link to="/detailproduct/:id" style="color: black">
           <img
             :src="'http://localhost:3000/' + bake.image_path"
-            style="width: 200px; height: 200px"
+            style="width: 400px; height: 200px"
           />
           <p>{{ bake.product_name }}</p>
         </router-link>
         <router-link
           :to="`/editproduct/${bake.product_id}`"
           style="color: black"
+          v-if="role == 'employee'"
         >
           <i class="fas fa-edit" style="font-size: 20px"></i>
         </router-link>
@@ -44,22 +45,24 @@
           class="fas fa-trash-alt ml-3"
           style="font-size: 20px"
           @click="modalProduct(bake.product_id)"
+          v-if="role == 'employee'"
         ></i>
       </div>
       <div
         class="column is-4"
         v-for="bake in bakery"
         :key="bake.id"
-        v-show="bake.product_status == 'out of stock'"
+        v-show="bake.product_status == 'out of stock' && bake.show_status == 'show'"
       >
         <img
           :src="'http://localhost:3000/' + bake.image_path"
-          style="width: 200px; height: 200px"
+          style="width: 400px; height: 200px"
         />
         <p>{{ bake.product_name }} (สินค้าหมด)</p>
         <router-link
           :to="`/editproduct/${bake.product_id}`"
           style="color: black"
+          v-if="role == 'employee'"
         >
           <i class="fas fa-edit" style="font-size: 20px"></i>
         </router-link>
@@ -67,6 +70,7 @@
           class="fas fa-trash-alt ml-3"
           style="font-size: 20px"
           @click="modalProduct(bake.product_id)"
+          v-if="role == 'employee'"
         ></i>
       </div>
     </div>
@@ -78,42 +82,52 @@
         class="column is-4"
         v-for="dr in drink"
         :key="dr.id"
-        v-show="dr.product_status == 'available'"
+        v-show="dr.product_status == 'available' && dr.show_status == 'show'"
       >
-        <router-link to="/order" style="color: black">
+        <router-link to="/detailproduct/:id" style="color: black">
           <img
             :src="'http://localhost:3000/' + dr.image_path"
-            style="width: 200px; height: 200px"
+            style="width: 400px; height: 200px"
           />
           <p>{{ dr.product_name }}</p>
         </router-link>
-        <router-link :to="`/editproduct/${dr.product_id}`" style="color: black">
+        <router-link
+          :to="`/editproduct/${dr.product_id}`"
+          style="color: black"
+          v-if="role == 'employee'"
+        >
           <i class="fas fa-edit" style="font-size: 20px"></i>
         </router-link>
         <i
           class="fas fa-trash-alt ml-3"
           style="font-size: 20px"
           @click="modalProduct(dr.product_id, index)"
+          v-if="role == 'employee'"
         ></i>
       </div>
       <div
         class="column is-4"
         v-for="dr in drink"
         :key="dr.id"
-        v-show="dr.product_status == 'out of stock'"
+        v-show="dr.product_status == 'out of stock' && dr.show_status == 'show'"
       >
         <img
           :src="'http://localhost:3000/' + dr.image_path"
-          style="width: 200px; height: 200px"
+          style="width: 400px; height: 200px"
         />
         <p>{{ dr.product_name }} (สินค้าหมด)</p>
-        <router-link :to="`/editproduct/${dr.product_id}`" style="color: black">
+        <router-link
+          :to="`/editproduct/${dr.product_id}`"
+          style="color: black"
+          v-if="role == 'employee'"
+        >
           <i class="fas fa-edit" style="font-size: 20px"></i>
         </router-link>
         <i
           class="fas fa-trash-alt ml-3"
           style="font-size: 20px"
           @click="modalProduct(dr.product_id)"
+          v-if="role == 'employee'"
         ></i>
       </div>
     </div>
@@ -178,11 +192,13 @@ export default {
       drink: [],
       isCardModalActive: false,
       deleteproduct: null,
+      role: ''
     };
   },
   mounted() {
     this.getBakery();
     this.getDrink();
+    this.role = localStorage.getItem("role");
   },
   methods: {
     getBakery() {
@@ -212,7 +228,7 @@ export default {
     },
     deleteProduct(productId) {
       axios
-        .delete(`http://localhost:3000/product/${productId}`)
+        .put(`http://localhost:3000/product/delete/${productId}`)
         .then((response) => {
           console.log(response);
           axios
