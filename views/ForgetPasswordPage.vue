@@ -42,7 +42,7 @@
                     />
                   </div>
                 </div>
-                <button class="button is-block is-info is-large is-fullwidth">
+                <button class="button is-block is-large is-fullwidth" style="background-color: #633f38; color: #f8dec7">
                   Reset Password <i class="fa fa-sign-in" aria-hidden="true"></i>
                 </button>
               </form>
