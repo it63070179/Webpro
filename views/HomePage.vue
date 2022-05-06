@@ -4,23 +4,25 @@
     <div class="bg_img">
       <NavBar />
     </div>
-    <h1 class="has-text-centered is-size-3 mb-3" style="margin-top: 60px;">สินค้ายอดนิยม</h1>
+    <h1 class="has-text-centered is-size-3 mb-3" style="margin-top: 60px">
+      สินค้ายอดนิยม
+    </h1>
     <b-carousel>
-      <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
+      <b-carousel-item v-for="(popular, i) in popularproducts" :key="i">
         <div class="middle_pic" style="height: 65vh">
-          <img :src="carousel.image" style="max-height: 400px" />
+          <img :src="popular.image_path" style="max-height: 400px" />
         </div>
       </b-carousel-item>
     </b-carousel>
-    <h1 class="has-text-centered is-size-3 mb-3" style="margin-top: 60px;">
+    <h1 class="has-text-centered is-size-3 mb-3" style="margin-top: 60px">
       สินค้าใหม่
     </h1>
     <div
-      class="middle_pic"
+      class="middle_pic mb-5"
       v-for="(newproduct, index) in newproducts"
       :key="index"
     >
-      <img :src="newproduct.path_image" style="max-height: 400px" />
+      <img :src="newproduct.image_path" style="max-height: 400px" />
     </div>
   </div>
 </template>
@@ -54,32 +56,34 @@ img {
 </style>
 <script>
 import NavBar from "../components/NavBar";
-
+import axios from "axios";
 export default {
-  data() {
-    return {
-      carousels: [
-        {
-          text: "Slide 1",
-          image: require("../assets/chocolate_cake_PNG5.png"),
-        },
-        {
-          text: "Slide 2",
-          image: require("../assets/chocolate_cake_PNG40.png"),
-        },
-      ],
-      newproducts: [
-        {
-          path_image: require("../assets/chocolate_cake_PNG5.png"),
-        },
-        {
-          path_image: require("../assets/chocolate_cake_PNG40.png"),
-        },
-      ],
-    };
-  },
   components: {
     NavBar,
+  },
+  data() {
+    return {
+      popularproducts: [],
+      newproducts: [],
+    };
+  },
+  mounted() {
+    this.getProduct();
+  },
+  methods: {
+    getProduct() {
+      axios
+        .get(`http://localhost:3000/home`)
+        .then((response) => {
+          this.popularproducts = response.data.popularproduct;
+          this.newproducts = response.data.newproduct;
+          console.log(this.this.carousels);
+          console.log(this.newproducts);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
