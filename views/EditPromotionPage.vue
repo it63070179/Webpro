@@ -8,7 +8,7 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <div class="column">
-            <div class="field" style="margin-left:565px">
+            <div class="field" style="margin-left: 565px">
               <label class="file-label">
                 <input
                   class="file-input"
@@ -31,37 +31,85 @@
 
             <div class="field">
               <div class="control">
-                <b><p style="font-size:20px; color:#633f38">แก้ไขชื่อโปรโมชัน</p></b>
+                <b
+                  ><p style="font-size: 20px; color: #633f38">
+                    แก้ไขชื่อโปรโมชัน
+                  </p></b
+                >
                 <input
                   class="input is-medium"
                   type="productname"
                   placeholder="Promotion Name"
-                  v-model="pro_name"
+                  v-model="$v.pro_name.$model"
+                  :class="{ 'is-danger': $v.pro_name.$error }"
                 />
               </div>
+              <template v-if="$v.pro_name.$error">
+                <!-- เช็ค v-if ว่ามีค่า error หรือป่าวถ้ามี error จะแสดงขึ้นมา-->
+
+                <p
+                  class="help is-danger"
+                  style="font-size: 20px"
+                  v-if="!$v.pro_name.required"
+                >
+                  This field is requried
+                </p>
+              </template>
             </div>
-            <br>
+            <br />
 
             <br />
             <div class="field">
               <div class="control">
                 <div class="columns">
                   <div class="column">
-                    <b><p style="font-size:20px; color:#633f38">แก้ไขวันเริ่มโปรโมชัน</p></b>
+                    <b
+                      ><p style="font-size: 20px; color: #633f38">
+                        แก้ไขวันเริ่มโปรโมชัน
+                      </p></b
+                    >
                     <date-picker
-                      v-model="start_date"
+                      v-model="$v.start_date.$model"
+                      :class="{ 'is-danger': $v.start_date.$error }"
                       type="datetime"
                       placeholder="Start Date"
                     ></date-picker>
+                    <template v-if="$v.start_date.$error">
+                      <!-- เช็ค v-if ว่ามีค่า error หรือป่าวถ้ามี error จะแสดงขึ้นมา-->
+
+                      <p
+                        class="help is-danger"
+                        style="font-size: 20px"
+                        v-if="!$v.start_date.required"
+                      >
+                        This field is requried
+                      </p>
+                    </template>
                   </div>
 
                   <div class="column">
-                    <b><p style="font-size:20px; color:#633f38">แก้ไขวันหมดโปรโมชัน</p></b>
+                    <b
+                      ><p style="font-size: 20px; color: #633f38">
+                        แก้ไขวันหมดโปรโมชัน
+                      </p></b
+                    >
                     <date-picker
-                      v-model="expired_date"
+                      v-model="$v.expired_date.$model"
+                      :class="{ 'is-danger': $v.expired_date.$error }"
                       type="datetime"
                       placeholder="Expired Date"
                     ></date-picker>
+                    <template v-if="$v.expired_date.$error">
+                      <!-- เช็ค v-if ว่ามีค่า error หรือป่าวถ้ามี error จะแสดงขึ้นมา-->
+
+                      <p
+                        class="help is-danger"
+                        style="font-size: 20px"
+                        v-if="!$v.expired_date.required"
+                      >
+                        This field is requried
+                      </p>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -70,30 +118,46 @@
             <br />
             <div class="field">
               <div class="control">
-                <b><p style="font-size:20px; color:#633f38">แก้ไขรายละเอียดโปรโมชัน</p></b>
+                <b
+                  ><p style="font-size: 20px; color: #633f38">
+                    แก้ไขรายละเอียดโปรโมชัน
+                  </p></b
+                >
                 <textarea
                   class="textarea"
-                  v-model="pro_detail"
+                  v-model="$v.pro_detail.$model"
+                  :class="{ 'is-danger': $v.pro_detail.$error }"
                   type="Description"
                   placeholder="Promotion Detail"
                 />
               </div>
+              <template v-if="$v.pro_detail.$error">
+                <!-- เช็ค v-if ว่ามีค่า error หรือป่าวถ้ามี error จะแสดงขึ้นมา-->
+
+                <p
+                  class="help is-danger"
+                  style="font-size: 20px"
+                  v-if="!$v.pro_detail.required"
+                >
+                  This field is requried
+                </p>
+              </template>
             </div>
             <br />
-            <div class="columns mt-6">
+            <div class="columns mt-6" style="margin-left:500px">
               <button
-                class="button is-block is-info is-medium is-fullwidth"
-                style="background-color: #633f38; color: #f8dec7"
+                class="button is-block is-info is-medium ml-4"
+                style="background-color: #633f38; color: #f8dec7 ; width: 150px; "
                 @click="saveEdit(promotionId)"
               >
                 ยืนยัน
               </button>
-              <button
-                class="button is-block is-info is-medium is-fullwidth ml-4"
-                style="background-color: #633f38; color: #f8dec7"
+              <router-link to="/adminpromotion"><button
+                class="button is-block is-info is-medium ml-4"
+                style="background-color: #633f38; color: #f8dec7 ; width: 150px;"
               >
                 ยกเลิก
-              </button>
+              </button></router-link>
             </div>
           </div>
         </div>
@@ -108,6 +172,7 @@ import axios from "axios";
 import NavBar from "../components/NavBar";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   components: {
@@ -129,6 +194,20 @@ export default {
       file: "",
     };
   },
+  validations: {
+    pro_name: {
+      required,
+    },
+    pro_detail: {
+      required,
+    },
+    start_date: {
+      required,
+    },
+    expired_date: {
+      required,
+    },
+  },
   mounted() {
     this.getPromotion(this.$route.params.promoId);
   },
@@ -141,17 +220,17 @@ export default {
         .get(`http://localhost:3000/editpromotion/${promoId}`)
         .then((response) => {
           this.promotionId = response.data.promotions.pro_id;
-            this.pro_name = response.data.promotions.pro_name;
-            this.datestart = response.data.promotions.datestart;
-            this.dateend = response.data.promotions.dateend;
-            this.pro_detail = response.data.promotions.pro_detail;
+          this.pro_name = response.data.promotions.pro_name;
+          this.datestart = response.data.promotions.datestart;
+          this.dateend = response.data.promotions.dateend;
+          this.pro_detail = response.data.promotions.pro_detail;
         })
         .catch((err) => {
           console.log(err);
         });
     },
     saveEdit() {
-     this.datestart = new Date(this.start_date)
+      this.datestart = new Date(this.start_date)
         .toISOString()
         .slice(0, 19)
         .replace("T", " ");
@@ -159,7 +238,7 @@ export default {
         .toISOString()
         .slice(0, 19)
         .replace("T", " ");
-        
+
       const formData = new FormData();
       formData.append("pro_name", this.pro_name);
       formData.append("start_date", this.datestart);
@@ -167,14 +246,15 @@ export default {
       formData.append("pro_detail", this.pro_detail);
       formData.append("pro_image", this.file);
 
-
-    axios
-        .put(`http://localhost:3000/saveeditpromo/${this.promotionId}`, formData)
+      axios
+        .put(
+          `http://localhost:3000/saveeditpromo/${this.promotionId}`,
+          formData
+        )
 
         .then((res) => {
           this.file = res.data;
           this.$router.push({ name: "Adminpromotion" });
-          
         })
         .catch((err) => {
           console.log(err);
