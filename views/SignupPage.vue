@@ -29,6 +29,11 @@
                         This field is requried
                       </p>
                       <!-- ถ้าไม่ใส่ค่าอะไรเลยจะขึ้น error มา-->
+                      <p class="help is-danger" v-if="!$v.fname.minLength">
+                        First Name must more than 5 letters
+                      </p>
+
+                      <!-- ถ้าใส่ค่า First Name น้อยกว่า 5 ตัว จะขึ้น error-->
                       <p class="help is-danger" v-if="!$v.fname.maxLength">
                         First Name must not more than 50 letters
                       </p>
@@ -51,6 +56,11 @@
                       <p class="help is-danger" v-if="!$v.lname.required">
                         This field is requried
                       </p>
+                      <p class="help is-danger" v-if="!$v.lname.minLength">
+                        Last Name must more than 5 letters
+                      </p>
+
+                      <!-- ถ้าใส่ค่า Last Name น้อยกว่า 5 ตัว จะขึ้น error-->
                       <!-- ถ้าไม่ใส่ค่าอะไรเลยจะขึ้น error มา-->
                       <p class="help is-danger" v-if="!$v.lname.maxLength">
                         Last Name must not more than 50 letters
@@ -273,7 +283,7 @@
                   <br />
                   <br />
                   <center>
-                    <button
+                    <button :disabled="user_login == '' || user_password == '' || fname == '' || lname == '' || age == 0 || phone == ''|| email == ''|| address == ''"
                       class="button is-block is-primary is-medium"
                       @click="submit()"
                     >
@@ -358,6 +368,7 @@ export default {
       lname: "",
       age: 0,
       address: "",
+      disableInput: false
     };
   },
   validations: {
@@ -385,10 +396,12 @@ export default {
     },
     fname: {
       required,
+      minLength: minLength(5),
       maxLength: maxLength(50),
     },
     lname: {
       required,
+      minLength: minLength(5),
       maxLength: maxLength(50),
     },
     age: {
@@ -396,8 +409,8 @@ export default {
       between: between(15, 80),
     },
     address: {
-      required
-    }
+      required,
+    },
   },
 
   methods: {
@@ -427,6 +440,7 @@ export default {
             console.log(res);
           })
           .catch((err) => {
+            console.log("1");
             alert(err.response.data.details.message);
           });
       }
