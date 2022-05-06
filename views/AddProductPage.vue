@@ -6,7 +6,7 @@
 
     <section class="hero is-fullheight">
       <div class="hero-body">
-        <div class="container has-text-centered">
+        <div class="container">
           <div class="column is-4 is-offset-4">
             <div class="field">
               <label class="file-label">
@@ -56,6 +56,7 @@
 
             <div class="field">
               <div class="control">
+                <strong>ชื่อสินค้า</strong>
                 <input
                   class="input is-medium"
                   type="productname"
@@ -67,6 +68,7 @@
 
             <div class="field">
               <div class="control">
+                <strong>รายละเอียดสินค้า</strong>
                 <textarea
                   class="textarea"
                   type="Description"
@@ -78,6 +80,7 @@
 
             <div class="field">
               <div class="control">
+                <strong>ราคาสินค้า</strong>
                 <input
                   class="input is-medium"
                   type="productprice"
@@ -89,6 +92,7 @@
 
             <div class="field">
               <div class="control">
+                <strong>ประเภทสินค้า</strong>
                 <div class="select is-fullwidth is-medium">
                   <select v-model="producttype">
                     <option v-for="type in type" :key="type.value">
@@ -101,6 +105,7 @@
 
             <div class="field">
               <div class="control">
+                <strong>สถานะของสินค้า</strong>
                 <div class="select is-fullwidth is-medium">
                   <select v-model="productstatus">
                     <option v-for="stat in status" :key="stat.value">
@@ -113,6 +118,7 @@
 
             <div class="field">
               <div class="control">
+                <strong>จำนวนสินค้า</strong>
                 <input
                   class="input is-medium"
                   type="productamount"
@@ -202,7 +208,7 @@ export default {
       axios
         .post("http://localhost:3000/product/add", formData)
         .then((response) => {
-          window.location.href = "/product";
+          this.$router.push({name: 'Product'})
           console.log(response.data);
         })
         .catch((err) => {
